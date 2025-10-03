@@ -1,26 +1,135 @@
 @import "tailwindcss";
 
+/* ===================================
+   Palette de couleurs
+=================================== */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0F1115;            /* Fond principal très foncé */
+  --background-secondary: #1A1D23;  /* Cartes, sidebar */
+  --foreground: #EAEAEA;            /* Texte principal */
+  --foreground-secondary: #A1A1A1;  /* Texte secondaire */
+  --accent: #00FF88;                 /* Vert néon */
+  --accent-dark: #00CC6A;            /* Vert plus foncé */
+  --border: #2A2F36;                 /* Bordures */
+  --font-sans: Arial, Helvetica, sans-serif;
 }
-
-/* @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-} */
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0F1115;
+    --background-secondary: #1A1D23;
+    --foreground: #EAEAEA;
+    --foreground-secondary: #A1A1A1;
+    --accent: #00FF88;
+    --accent-dark: #00CC6A;
+    --border: #2A2F36;
   }
 }
 
+/* ===================================
+   Base
+=================================== */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  margin: 0;
+  padding: 0;
+}
+
+/* ===================================
+   Cartes / Containers
+=================================== */
+.card {
+  background-color: var(--background-secondary);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border: 1px solid var(--border);
+}
+
+/* ===================================
+   Titres et textes
+=================================== */
+.title {
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  color: var(--foreground-secondary);
+  font-size: 1rem;
+}
+
+/* ===================================
+   Inputs
+=================================== */
+.input-field {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--background-secondary);
+  color: var(--foreground);
+  transition: border 0.2s, background 0.2s;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--accent);
+  background-color: var(--background-secondary);
+}
+
+/* ===================================
+   Boutons principaux
+=================================== */
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--background);
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-dark);
+  color: var(--background); /* texte lisible sur hover */
+}
+
+/* ===================================
+   Sidebar
+=================================== */
+.sidebar {
+  background-color: var(--background-secondary);
+  color: var(--foreground);
+}
+
+.sidebar a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+  display: block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.sidebar a:hover {
+  background-color: var(--border);
+  color: var(--accent-dark);
+}
+
+/* ===================================
+   Liens généraux
+=================================== */
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-dark);
 }

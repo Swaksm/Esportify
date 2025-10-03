@@ -12,34 +12,44 @@ export default function Sidebar() {
   }, [])
 
   const handleLogout = () => {
-  localStorage.clear()  // supprime toutes les infos côté client
-  setPseudo(null)       // met à jour l’état local
-  window.location.reload() // rafraîchit la page pour re-render complet
-}
-
+    localStorage.clear()          // supprime toutes les infos côté client
+    setPseudo(null)               // met à jour l’état local
+    window.location.reload()      // rafraîchit la page pour re-render complet
+  }
 
   return (
-    <aside className="w-64 bg-gray-800 text-white flex flex-col justify-between">
+    <aside
+      style={{ backgroundColor: 'var(--background-secondary)', color: 'var(--foreground)' }}
+      className="flex flex-col justify-between h-screen w-64"
+    >
       <div>
-        <div className="p-6 text-2xl font-bold border-b border-gray-700">
-          <Link href="/" className="hover:text-blue-400">
+        <div
+          style={{ borderBottom: '1px solid var(--border)' }}
+          className="p-6 text-2xl font-bold"
+        >
+          <Link href="/" style={{ color: 'var(--accent)' }}>
             Esportify
           </Link>
         </div>
 
         <nav className="mt-6 flex flex-col gap-2">
-          <Link href="/page1" className="block px-6 py-3 hover:bg-gray-700 rounded">
-            Page 1
-          </Link>
-          <Link href="/page2" className="block px-6 py-3 hover:bg-gray-700 rounded">
-            Page 2
-          </Link>
-          <Link href="/page3" className="block px-6 py-3 hover:bg-gray-700 rounded">
-            Page 3
-          </Link>
-          <Link href="/page4" className="block px-6 py-3 hover:bg-gray-700 rounded">
-            Page 4
-          </Link>
+          {['page1','page2','page3','page4'].map((p) => (
+            <Link
+              key={p}
+              href={`/${p}`}
+              style={{
+                padding: '0.75rem 1.5rem',
+                borderRadius: '0.5rem',
+                display: 'block',
+                color: 'var(--foreground)',
+                transition: 'background 0.2s'
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--border)')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
+            >
+              {p.charAt(0).toUpperCase() + p.slice(1)}
+            </Link>
+          ))}
         </nav>
       </div>
 
@@ -47,7 +57,11 @@ export default function Sidebar() {
         {pseudo ? (
           <button
             onClick={handleLogout}
-            className="w-full block text-center px-4 py-2 bg-red-500 hover:bg-red-600 rounded"
+            style={{
+              backgroundColor: '#FF4C4C',
+              color: 'var(--foreground)',
+            }}
+            className="w-full block text-center px-4 py-2 rounded font-semibold hover:bg-red-600 transition"
           >
             Déconnexion
           </button>
@@ -55,14 +69,14 @@ export default function Sidebar() {
           <>
             <Link
               href="/login"
-              className="w-full block text-center px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded"
+              className="btn-primary w-full block text-center"
             >
               Se connecter
             </Link>
 
             <Link
               href="/register"
-              className="w-full block text-center px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded mt-2"
+              className="btn-primary w-full block text-center mt-2"
             >
               Enregistrer
             </Link>

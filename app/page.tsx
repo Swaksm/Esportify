@@ -13,16 +13,16 @@ export default function HomePage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-4xl font-bold text-blue-600">
-        Bienvenue {pseudo} !
-      </h1>
-      <p className="mt-4 text-gray-700">
-        Ceci est ma première page avec Next.js 13.
-      </p>
-      <button className="mt-6 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-        Cliquer ici
-      </button>
+    <div className="flex items-center justify-center h-full min-h-screen">
+      <div className="card text-center">
+        <h1 className="title">Bienvenue {pseudo} !</h1>
+        <p className="subtitle mt-4">
+         Ici, vous pouvez perdre 100% de votre capital  … ou gagner jusqu’à 999 999% ! 😎
+        </p>
+        <button className="btn-primary mt-6">
+          GET STARTED
+        </button>
+      </div>
     </div>
   )
 }
