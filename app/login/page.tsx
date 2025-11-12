@@ -6,24 +6,42 @@ export default function LoginPage() {
   const [pseudo, setPseudo] = useState('')
   const [motDePasse, setMotDePasse] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    setLoading(true)
 
-    const res = await fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pseudo, mot_de_passe: motDePasse }),
-    })
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pseudo, mot_de_passe: motDePasse }),
+      })
+      const data = await res.json()
 
-    const data = await res.json()
+      if (!res.ok || !data.success) {
+        setError(data.message || 'Erreur de connexion')
+        return
+      }
 
-    if (data.success) {
+      // ✅ stocke tout
+      localStorage.setItem('user_id', String(data.user.id))
       localStorage.setItem('pseudo', data.user.pseudo)
-      window.location.href = '/' // reload complet
-    } else {
-      setError(data.message || 'Erreur de connexion')
+      localStorage.setItem('is_admin', String(data.user.admin))
+
+      // ✅ notifie Sidebar/Wheel (optionnel, mais utile si tu restes sur la même page)
+      window.dispatchEvent(new Event('storage'))
+      window.dispatchEvent(new Event('tokens-updated'))
+
+      // 🔥 hard reload (comme avant)
+      window.location.replace('/') // ou: window.location.href = '/'
+    } catch (err) {
+      console.error('Erreur de connexion :', err)
+      setError('Erreur serveur ou réseau')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -52,8 +70,8 @@ export default function LoginPage() {
 
         {error && <p className="subtitle text-red-500 text-sm">{error}</p>}
 
-        <button type="submit" className="btn-primary mt-2">
-          Se connecter
+        <button type="submit" className="btn-primary mt-2" disabled={loading}>
+          {loading ? 'Connexion...' : 'Se connecter'}
         </button>
       </form>
     </div>

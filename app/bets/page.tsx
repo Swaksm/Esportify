@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 
 import { useEffect, useMemo, useState } from 'react'
 
@@ -202,7 +203,17 @@ export default function BetsPage() {
   /* --- Rendu --- */
   return (
     <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Parier sur un skin au prochain patch</h1>
+      <div className="mb-4 flex items-center justify-between gap-3">
+  <h1 className="text-2xl font-bold">Parier sur un skin au prochain patch</h1>
+  <Link
+    href="/patches"
+    className="inline-flex items-center rounded px-3 py-2 bg-purple-600 text-white hover:opacity-90 active:opacity-80 transition"
+    title="Voir les patchs"
+  >
+    Voir les patchs
+  </Link>
+</div>
+
         {/* --- Historique des paris --- */}
       <section>
         <h2 className="text-xl font-semibold mb-3">Mes derniers paris</h2>
