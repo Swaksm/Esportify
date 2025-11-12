@@ -4,12 +4,13 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
+  const router = useRouter()
   const [pseudo, setPseudo] = useState('')
   const [motDePasse, setMotDePasse] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
-  const router = useRouter()
+  const [loading, setLoading] = useState(false)
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,19 +22,30 @@ export default function RegisterPage() {
       return
     }
 
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pseudo, mot_de_passe: motDePasse }),
-    })
+    setLoading(true)
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pseudo, mot_de_passe: motDePasse }),
+      })
 
-    const data = await res.json()
+      // ne plante pas si le body est vide ou non-JSON
+      const text = await res.text()
+      const data = text ? JSON.parse(text) : {}
 
-    if (data.success) {
+      if (!res.ok || !data?.success) {
+        setError(data?.message || 'Erreur lors de la création du compte')
+        return
+      }
+
       setSuccess('Compte créé avec succès ! Redirection vers login...')
-      setTimeout(() => router.push('/login'), 2000)
-    } else {
-      setError(data.message || 'Erreur lors de la création du compte')
+      setTimeout(() => router.push('/login'), 1500)
+    } catch (err) {
+      console.error(err)
+      setError('Erreur réseau/serveur')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -50,7 +62,6 @@ export default function RegisterPage() {
           className="input-field"
           required
         />
-
         <input
           type="password"
           placeholder="Mot de passe"
@@ -59,7 +70,6 @@ export default function RegisterPage() {
           className="input-field"
           required
         />
-
         <input
           type="password"
           placeholder="Confirmer le mot de passe"
@@ -72,8 +82,8 @@ export default function RegisterPage() {
         {error && <p className="subtitle text-red-500 text-sm">{error}</p>}
         {success && <p className="subtitle text-green-400 text-sm">{success}</p>}
 
-        <button type="submit" className="btn-primary mt-2">
-          S’inscrire
+        <button type="submit" className="btn-primary mt-2" disabled={loading}>
+          {loading ? 'Création...' : 'S’inscrire'}
         </button>
       </form>
     </div>
