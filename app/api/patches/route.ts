@@ -188,7 +188,7 @@ export async function GET() {
     const links: string[] = []
     $('a[href*="/en-us/news/game-updates/patch-"]').each((_, el) => {
       const href = $(el).attr('href')
-      if (href && links.length < 3) {
+      if (href && links.length < 6) {
         links.push(href.startsWith('http') ? href : `https://www.leagueoflegends.com${href}`)
       }
     })

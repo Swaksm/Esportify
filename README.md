@@ -1,36 +1,45 @@
-Assurez-vous d’avoir :
+# WhichSkin?
 
-une base MySQL opérationnelle
-
-un fichier .env contenant les informations de connexion
-
-les tables importées
-
-
------------------------------
+> **Disclaimer**  
+> Étant débutant en JavaScript et Next.js, développer une application complète comme celle-ci représentait un vrai défi. Certaines parties ont été plus abordables, d’autres beaucoup plus techniques, et j’ai parfois manqué d’expérience pour avancer sereinement.  
+> Pour surmonter ces difficultés et continuer à progresser, j’ai fait appel à une IA comme outil d’assistance : pour m’aider à comprendre certaines notions, corriger des erreurs ou m’accompagner sur les parties les plus complexes.  
+> J’ai toutefois pris soin de lire, comprendre et adapter le code, et une bonne partie de la logique a été écrite par moi-même.  
+> La récupération automatique des patchs (scraping, parsing, insertion en base) a notamment été l’un des points les plus techniques du projet, et c’est là que l’assistance m’a été la plus utile.
 
 
-WhichSkin? est une application Next.js permettant de parier des tokens sur l’arrivée de skins dans les prochains patchs de League of Legends.
+
+WhichSkin? est une application Next.js permettant de parier des tokens sur l’arrivée de skins dans les prochains patchs de League of Legends.  
 L’application inclut un système de paris, une analyse automatisée des patchs, une roue de gain de tokens, et diverses pages d’information.
 
-Fonctionnalités principales
+---
 
+## Fonctionnalités principales
 
-Page d’accueil (/) – Présente l’application, le dernier patch et l’accès rapide aux principales sections.
+- **Page d’accueil (`/`)** – Présente l’application, le dernier patch et l’accès rapide aux principales sections.  
+- **Paris (`/bets`)** – Permet de créer un pari et d’afficher l’historique des mises.  
+- **Résultats (`/result`)** – Montre si les paris sont gagnés ou perdus selon le patch suivant.  
+- **Patchs (`/patches`)** – Liste les patchs récupérés automatiquement et leurs skins.  
+- **Champions (`/champions`)** – Affiche tous les champions avec image et pick rate.  
+- **Wheel of Fortune (`/wheel`)** – Donne des tokens gratuits via une roue toutes les 60 secondes.  
+- **Connexion / Inscription (`/login`, `/register`)** – Permet de définir le pseudo utilisé sur l’application.
 
-Paris (/bets) – Permet de créer un pari et d’afficher l’historique des mises.
+---
 
-Résultats (/result) – Montre si les paris sont gagnés ou perdus selon le patch suivant.
+## Prérequis
 
-Patchs (/patches) – Liste les patchs récupérés automatiquement et leurs skins.
+Assurez-vous d’avoir :
 
-Champions (/champions) – Affiche tous les champions avec image et pick rate.
-    
-Wheel of Fortune (/wheel) – Donne des tokens gratuits via une roue toutes les 60 secondes.
+- une base MySQL opérationnelle  
+- un fichier `.env` contenant les informations de connexion  
+- les tables nécessaires importées (`champions`, `bets`, `patches`, `patch_skins`)
 
-Connexion / Inscription (/login, /register) – Permet de définir le pseudo utilisé sur l’application.
+Sans ces éléments, l’application ne pourra pas fonctionner correctement.
 
-Démarrage rapide
+---
+
+## Démarrage rapide
+
+```bash
 git clone https://github.com/ton-repo/WhichSkin
 cd WhichSkin
 npm install
