@@ -1,5 +1,10 @@
 # WhichSkin?
 
+Pour lancer l'app dans de bonne condition crée une BDD mysql appeler "whichskin" et importer le fichier "bdd.sql" dedans ensuite "bd.ts" changer au besoin les informations de login de BDD.
+Si tout est bon vous devrez pouvoir lancer l'app via npm run dev.
+
+
+
 > **Disclaimer**  
 > Étant débutant en JavaScript et Next.js, développer une application complète comme celle-ci représentait un vrai défi. Certaines parties ont été plus abordables, d’autres beaucoup plus techniques, et j’ai parfois manqué d’expérience pour avancer sereinement.  
 > Pour surmonter ces difficultés et continuer à progresser, j’ai fait appel à une IA comme outil d’assistance : pour m’aider à comprendre certaines notions, corriger des erreurs ou m’accompagner sur les parties les plus complexes.  
